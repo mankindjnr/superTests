@@ -1,15 +1,17 @@
 #include "main.h"
 
 /**
- *read_line - reads characters entered by the user
- *EOF - indicates the end of input
+ *read_line - reads the user input char by char
+ *Return: the line from input null terminated
  */
-
 char *read_line(void)
 {
-	int bufsize = RL_BUFSIZE;
-	int position = 0, ch;
+#define SHELL_BUFSIZE 1024
+
+	int bufsize = SHELL_BUFSIZE;
+	int position = 0;
 	char *buffer = malloc(sizeof(char) * bufsize);
+	int c;
 
 	if (!buffer)
 	{
@@ -19,22 +21,26 @@ char *read_line(void)
 
 	while (1)
 	{
-		ch = getchar(); /*reads character*/
+		c = getchar();
 
-		if (ch == EOF || ch == '\n')
+		if (c == EOF)
 		{
-			buffer[position] = '\n';
+			exit(EXIT_SUCCESS);
+		}
+		else if (c == '\n')
+		{
+			buffer[position] = '\0';
 			return (buffer);
 		}
 		else
 		{
-			buffer[position] = ch;
+			buffer[position] = c;
 		}
 		position++;
 
 		if (position >= bufsize)
 		{
-			bufsize += RL_BUFSIZE;
+			bufsize += SHELL_BUFSIZE;
 			buffer = realloc(buffer, bufsize);
 
 			if (!buffer)

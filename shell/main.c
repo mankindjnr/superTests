@@ -1,23 +1,14 @@
 #include "main.h"
 
 /**
- *shell - entry point for the shell project
+ *main - entry point
+ *@argc: number of argumnts entered in the command line
+ *@argv: the arguments
+ *Return: success
  */
-int main(int argc, char **argv)
+int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 {
-	char *getline;
-	char **arguments;
-	int status;
-
-	do {
-		printf("$ ");
-		getline = read_line();
-		arguments = split_line(getline);
-		status = shell_execute(arguments);
-
-		free(getline);
-		free(arguments);
-	} while (status);
+	shell_loop();
 
 	return (EXIT_SUCCESS);
 }

@@ -1,21 +1,21 @@
 #include "main.h"
 
 /**
- *launch - launches the process called by the arguments
- *entered by user
- *@arguments: the arguments that launch process
- *Return: 1- signal for promp
+ *shell_launch - launch a program and wait for it to terminate
+ *@args: arguments entered  by user
+ *Return: 1 to signal to continue execution
  */
-int launch(char  **arguments)
+int shell_launch(char **args __attribute__((unused)))
 {
-	pid_t pid, wpid;
+	pid_t pid;
 	int status;
 
 	pid = fork();
 
 	if (pid == 0)
 	{
-		if (execvp(arguments[0], arguments) == -1)
+		/*child process*/
+		if (execvp(args[0], args) == -1)
 		{
 			perror("shell");
 		}
@@ -23,12 +23,13 @@ int launch(char  **arguments)
 	}
 	else if (pid < 0)
 	{
-		perror("shell");
+		perror("shell"); /*error forking*/
 	}
 	else
 	{
+		/*parent process*/
 		do {
-			wpid = waitpid(pid, &status, WUNTRACED);
+			waitpid(pid, &status, WUNTRACED);
 		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
 	}
 	return (1);

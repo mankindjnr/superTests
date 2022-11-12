@@ -1,16 +1,18 @@
 #include "main.h"
 
-/**
- *split_line - will split the entered line to single argumnets
- *@getline: the line entered
- *Return: the single arguments
- */
+#define TOKEN_BUFSIZE 64
+#define DELIMITER " \t\r\n\a"
 
-char **split_line(char *getline)
+/**
+ *split_line - split line into tokens
+ *@line: the line to split
+ *Return: a null terminated array of tokens
+ */
+char **split_line(char *line)
 {
 	int bufsize = TOKEN_BUFSIZE, position = 0;
 	char **tokens = malloc(bufsize * sizeof(char *));
-	char *token;
+	char *token, **tokens_backup;
 
 	if (!tokens)
 	{
@@ -18,21 +20,23 @@ char **split_line(char *getline)
 		exit(EXIT_FAILURE);
 	}
 
-	token = strtok(getline, DELIMITER);
+	token = strtok(line, DELIMITER);
 
 	while (token != NULL)
 	{
-		tokens[position] = tokens;
+		tokens[position] = token;
 		position++;
 
 		if (position >= bufsize)
 		{
 			bufsize += TOKEN_BUFSIZE;
+			tokens_backup = tokens;
 			tokens = realloc(tokens, bufsize * sizeof(char *));
 
 			if (!tokens)
 			{
-				fprintf(stderr, "shell: allocation error\n");
+				free(tokens_backup);
+				fprintf(stderr, "shell: allocatio error\n");
 				exit(EXIT_FAILURE);
 			}
 		}
