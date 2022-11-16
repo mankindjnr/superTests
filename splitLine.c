@@ -16,7 +16,7 @@ char **split_line(char *line)
 
 	if (!tokens)
 	{
-		fprintf(stderr, "shell: allocation error\n");
+		perror("shell: allocation error\n");
 		exit(EXIT_FAILURE);
 	}
 
@@ -36,7 +36,7 @@ char **split_line(char *line)
 			if (!tokens)
 			{
 				free(tokens_backup);
-				fprintf(stderr, "shell: allocatio error\n");
+				perror("shell: allocatio error\n");
 				exit(EXIT_FAILURE);
 			}
 		}

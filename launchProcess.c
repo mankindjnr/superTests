@@ -5,7 +5,7 @@
  *@args: arguments entered  by user
  *Return: 1 to signal to continue execution
  */
-int shell_launch(char **args __attribute__((unused)))
+int shell_launch(char **args)
 {
 	pid_t pid;
 	int status;
@@ -15,7 +15,7 @@ int shell_launch(char **args __attribute__((unused)))
 	if (pid == 0)
 	{
 		/*child process*/
-		if (execvp(args[0], args) == -1)
+		if (execve(args[0], args, NULL) == -1)
 		{
 			perror("shell");
 		}

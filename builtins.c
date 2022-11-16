@@ -36,7 +36,7 @@ int shell_cd(char **args)
 {
 	if (args[1] == NULL)
 	{
-		fprintf(stderr, "shell: expected argumnent to \"cd\"\n");
+		perror("shell: expected argumnent to \"cd\"\n");
 	}
 	else
 	{
@@ -56,16 +56,24 @@ int shell_cd(char **args)
 int shell_help(char **args __attribute__((unused)))
 {
 	int i;
+	char *placeholder;
 
-	printf("AMOS & ISAAC SHELL\n");
-	printf("program names and arguments\n");
+	char *owners = "AMOS & ISAAC SHELL";
+	char *builtins = "program names";
+
+	write(STDOUT_FILENO, owners, strlen(owners));
+	_putchar('\n');
+        write(STDOUT_FILENO, builtins, strlen(builtins));
+	_putchar('\n');
 
 	for (i = 0; i < num_of_builtins(); i++)
 	{
-		printf(" %s\n", builtin_str[i]);
+		placeholder = builtin_str[i];
+
+		write(STDOUT_FILENO, placeholder, strlen(placeholder));
+		_putchar('\n');
 	}
 
-	printf("use the man command for more info\n");
 	return (1);
 }
 

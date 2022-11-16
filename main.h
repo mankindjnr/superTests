@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <string.h>
 
+int _putchar(char c);
 int shell_cd(char **args);
 int shell_help(char **args __attribute__((unused)));
 int shell_exit(char **args __attribute__((unused)));

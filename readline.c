@@ -15,7 +15,7 @@ char *read_line(void)
 
 	if (!buffer)
 	{
-		fprintf(stderr, "shell: allocation error\n");
+		perror("shell: allocation error\n");
 		exit(EXIT_FAILURE);
 	}
 
@@ -23,11 +23,7 @@ char *read_line(void)
 	{
 		c = getchar();
 
-		if (c == EOF)
-		{
-			exit(EXIT_SUCCESS);
-		}
-		else if (c == '\n')
+		if (c == EOF || c == '\n')
 		{
 			buffer[position] = '\0';
 			return (buffer);
@@ -45,7 +41,7 @@ char *read_line(void)
 
 			if (!buffer)
 			{
-				fprintf(stderr, "shell: allocation error\n");
+				perror("shell: allocation error\n");
 				exit(EXIT_FAILURE);
 			}
 		}

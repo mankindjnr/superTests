@@ -10,7 +10,8 @@ void shell_loop(void)
 	int status;
 
 	do {
-		printf("$ ");
+		_putchar('$');
+		_putchar(' ');
 		line = read_line();
 		args = split_line(line);
 		status = shell_execute(args);
